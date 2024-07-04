@@ -8,7 +8,23 @@
     <title>PracticeJS</title>
 </head>
 <body>
-    
+    <label for="passwordLength" >characters to include in password:</label>
+    <input type="number" id="passwordLength" ><br><br>
+
+    <label for="lowercase">Add Lower Case</label>
+    <input type="checkbox" id="lowercase">
+
+    <label for="uppercase">Add Upper Case</label>
+    <input type="checkbox" id="uppercase">
+
+    <label for="number">Add Numbers</label>
+    <input type="checkbox" id="number">
+
+    <label for="symbol">Add Symbols</label>
+    <input type="checkbox" id="symbol"><br><br>
+
+    <label class="generatedPassword"></label><br>
+    <button type="button" onclick="generatePassword()">Generate</button>
 
     <script src="index.js"></script>
 </body>

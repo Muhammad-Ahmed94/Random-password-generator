@@ -1,13 +1,18 @@
 //random password generator
+const generatedPassword = document.querySelector(".generatedPassword");
 
-const length = 12;
-const lowerCase = true;
-const upperCase = true;
-const number = true;
-const symbol = true;
+const lowerCaseCheckBoxButton = document.querySelector("#lowercase");
+const upperCaseCheckBoxButton = document.querySelector("#uppercase");
+const numberCheckBoxButton = document.querySelector("#number");
+const symbolCheckBoxButton = document.querySelector("#symbol");
 
-function generatePassword(length, lowerCase, upperCase, number, symbol) {
-    const lowerCaseChars = "abcdefghijklmnopqrstuvwxyz";
+
+
+function generatePassword() {
+    let passwordLength = document.querySelector("#passwordLength").value;
+    passwordLength = Number(passwordLength); //*password length is checked whenever the button is clicked
+
+    const lowerCaseChars = "abcdefghijklmnopqrstuvwxyz"; //*giving values to attributes
     const upperCaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const numberChars = "1234567890";
     const symbolChars = "!@#$%^&*()_+-=";
@@ -15,25 +20,37 @@ function generatePassword(length, lowerCase, upperCase, number, symbol) {
     let allowedChars = "";
     let password = "";
 
-    allowedChars += lowerCase ? lowerCaseChars : "";
-    allowedChars += upperCase ? upperCaseChars : "";
-    allowedChars += number ? numberChars : "";
-    allowedChars += symbol ? symbolChars : "";
+    //!checking which attribute is active
+    if(lowerCaseCheckBoxButton.checked) {
+        allowedChars += lowerCaseChars;
+    }
+    if(upperCaseCheckBoxButton.checked) {
+        allowedChars += upperCaseChars
+    }
+    if(numberCheckBoxButton.checked) {
+        allowedChars += numberChars
+    }
+    if(symbolCheckBoxButton.checked) {
+        allowedChars += symbolChars
+    }
 
-    if(length === 0) {
-    console.log("Minimum password length is 1");
+    //TODO: test cases for 0 password length and no active attribute
+    if(passwordLength === 0 || passwordLength === "") {
+        generatedPassword.textContent = "Minimum password length is 1";
     }
     if(allowedChars === "") {
-    console.log("select 1 atlease attribute!");
+        generatedPassword.textContent = "atlease 1 attribute should be selected";
+
     }
 
-    for(let i = 0; i < length; i++) {
+    //*generating the random password which is equal to input value
+    //*storing the random password to variable
+    for(let i = 0; i < passwordLength; i++) {
         let randomIndex = Math.floor(Math.random() * allowedChars.length) + 1;
         password += allowedChars[randomIndex];
     }
+    generatedPassword.textContent = `Your password is: ${password}`;
     return password;
+
 }
 
-
-const password = generatePassword(length, lowerCase, upperCase, number,symbol);
-console.log(`suggested random password is: ${password} `);
