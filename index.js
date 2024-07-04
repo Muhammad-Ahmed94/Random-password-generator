@@ -1,21 +1,39 @@
-const rollDice = document.querySelector(".rollDice");
+//random password generator
 
+const length = 12;
+const lowerCase = true;
+const upperCase = true;
+const number = true;
+const symbol = true;
 
+function generatePassword(length, lowerCase, upperCase, number, symbol) {
+    const lowerCaseChars = "abcdefghijklmnopqrstuvwxyz";
+    const upperCaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numberChars = "1234567890";
+    const symbolChars = "!@#$%^&*()_+-=";
 
+    let allowedChars = "";
+    let password = "";
 
-rollDice.addEventListener("click", function() {
-    const diceInput = document.querySelector("#dice-input").value;
-    const diceValue = document.querySelector(".dice-value");
-    const diceImage= document.querySelector(".dice-images");
+    allowedChars += lowerCase ? lowerCaseChars : "";
+    allowedChars += upperCase ? upperCaseChars : "";
+    allowedChars += number ? numberChars : "";
+    allowedChars += symbol ? symbolChars : "";
 
-    const values = [];
-    const images = [];
-    
-    for(let i=0; i<diceInput; i++) {
-        const value = Math.floor(Math.random() * 6) + 1;
-        values.push(value);
-        images.push(`<img src="dice_images/${value}.png" alt="dice${value}-image">`)
+    if(length === 0) {
+    console.log("Minimum password length is 1");
     }
-    diceValue.textContent = values.join(",")
-    diceImage.innerHTML = images
-})
+    if(allowedChars === "") {
+    console.log("select 1 atlease attribute!");
+    }
+
+    for(let i = 0; i < length; i++) {
+        let randomIndex = Math.floor(Math.random() * allowedChars.length) + 1;
+        password += allowedChars[randomIndex];
+    }
+    return password;
+}
+
+
+const password = generatePassword(length, lowerCase, upperCase, number,symbol);
+console.log(`suggested random password is: ${password} `);
